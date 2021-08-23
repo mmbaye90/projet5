@@ -30,9 +30,28 @@ function geturl() {
                         prixProduit: datas.price / (100) + "€",
                         decripProduit: datas.description,
                         idProduit: datas._id,
-                        choixLenses: choiceLensesByUser
+                        choixLenses: choiceLensesByUser,
+                        quantite: 1
                     }
-                    console.log(optionUtilisateur)
+                    const confirmChoice = () => {
+                        if (window.confirm(`${datas.name} avec les lentilles ${choiceLensesByUser}ok pour ajouter au panier si non annuler pour revenir en arriere`)) {
+                            window.location.href = "panier.html"
+                        } else {
+                            window.location.href = "index.html"
+                        }
+                    }
+                    let prdtEnrgDansLeLocalStrge = JSON.parse(localStorage.getItem("produit"))
+                    if (prdtEnrgDansLeLocalStrge) {
+                        prdtEnrgDansLeLocalStrge.push(optionUtilisateur);
+                        localStorage.setItem("produit", JSON.stringify(prdtEnrgDansLeLocalStrge))
+                        confirmChoice()
+
+                    } else {
+                        prdtEnrgDansLeLocalStrge = [];
+                        prdtEnrgDansLeLocalStrge.push(optionUtilisateur);
+                        localStorage.setItem("produit", JSON.stringify(prdtEnrgDansLeLocalStrge))
+                        confirmChoice()
+                    }
                 });
 
             }
