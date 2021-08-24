@@ -20,9 +20,10 @@ if (prdtEnrgDansLeLocalStrge === null) {
                     </div>
                     <p class="descrip" id="descrip">${element.decripProduit}</p>
                 </div>
-
+                <div class="contener-prix-supp">
                 <p class="prix" id="prix"><strong>${element.prixProduit}</strong></p>
-
+                <button class ="btn-supp">Supprimer</button>
+                </div>
             </div>   
         </div>`
     });

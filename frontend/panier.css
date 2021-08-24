@@ -96,7 +96,12 @@ header {
     justify-content: space-between;
 }
 
-.contener .prix {
+.contener .contener-prix-supp {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+}
+
+.contener .contener-prix-supp .btn-supp {
+    height: 2rem;
+    margin-top: 1rem;
 }
