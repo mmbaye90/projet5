@@ -22,7 +22,7 @@ if (prdtEnrgDansLeLocalStrge === null) {
                 </div>
                 <div class="contener-prix-supp">
                 <p class="prix" id="prix"><strong>${element.prixProduit}</strong></p>
-                <button class ="btn-supp">Supprimer</button>
+                <button class="btn-supp">Supprimer</button>
                 </div>
             </div>   
         </div>`
@@ -30,3 +30,5 @@ if (prdtEnrgDansLeLocalStrge === null) {
     const blocSection = document.getElementById("sectionproduit")
     blocSection.innerHTML = formatPanier;
 }
+const btnSupp = document.querySelectorAll(".btn-supp");
+console.log(btnSupp)

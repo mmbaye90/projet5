@@ -72,12 +72,6 @@ header {
     margin-bottom: 1rem;
     background: #fff;
     box-shadow: 0.25rem 0.25rem 10px rgb(0 0 0 / 10%);
-    transform: scale(1);
-    transition: all ease-in-out 0.2s;
-}
-
-.sectionproduits .bloca:hover {
-    transform: scale(1.01);
 }
 
 .bloca .contener-photo {
@@ -104,4 +98,5 @@ header {
 .contener .contener-prix-supp .btn-supp {
     height: 2rem;
     margin-top: 1rem;
+    cursor: pointer;
 }
