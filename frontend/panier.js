@@ -49,10 +49,15 @@ btnClique.forEach(function(name, index) {
 const ajoutBtnSupp = `<button class="suppAll">Vider le panier</button>`;
 const blocSection = document.getElementById("sectionproduit")
 blocSection.insertAdjacentHTML("beforeend", ajoutBtnSupp)
-
-
-// element.addEventListener("click", (event) => {
-//     event.preventDefault();
+const supp = document.querySelector(".suppAll")
+supp.addEventListener("click", (e) => {
+        e.preventDefault;
+        localStorage.removeItem("produit")
+        alert("attention vous vider votre panier")
+        location.href = "panier.html"
+    })
+    // element.addEventListener("click", (event) => {
+    //     event.preventDefault();
 
 //     const idSelectionne = element.dataset.id
 
