@@ -1,12 +1,13 @@
 let prdtEnrgDansLeLocalStrge = JSON.parse(localStorage.getItem("produit"))
 
-if (prdtEnrgDansLeLocalStrge === null) {
-    const panierVide = `<h3>votre panier est vide de vide </h3>`
+if (prdtEnrgDansLeLocalStrge === null || prdtEnrgDansLeLocalStrge == 0) {
+    const panierVide = `<h3>votre panier est vide de vide</h3> `
     const blocSection = document.getElementById("sectionproduit")
     blocSection.innerHTML = panierVide
 } else {
     let formatPanier = [];
     prdtEnrgDansLeLocalStrge.forEach(element => {
+
         formatPanier += ` 
         <div class="bloca" id="bloca">
             <div class="contener-photo">
@@ -26,9 +27,38 @@ if (prdtEnrgDansLeLocalStrge === null) {
                 </div>
             </div>   
         </div>`
+
+
     });
     const blocSection = document.getElementById("sectionproduit")
     blocSection.innerHTML = formatPanier;
 }
-const btnSupp = document.querySelectorAll(".btn-supp");
-console.log(btnSupp)
+
+const btnClique = document.querySelectorAll(".btn-supp");
+btnClique.forEach(function(name, index) {
+    name.addEventListener("click", (e) => {
+        e.preventDefault;
+        const recupIdBtnClique = prdtEnrgDansLeLocalStrge[index].idProduit
+        prdtEnrgDansLeLocalStrge = prdtEnrgDansLeLocalStrge.filter(el => el.idProduit !== recupIdBtnClique)
+        console.log(prdtEnrgDansLeLocalStrge)
+        localStorage.setItem("produit", JSON.stringify(prdtEnrgDansLeLocalStrge))
+
+        window.location.href = "panier.html"
+    })
+})
+const ajoutBtnSupp = `<button class="suppAll">Vider le panier</button>`;
+const blocSection = document.getElementById("sectionproduit")
+blocSection.insertAdjacentHTML("beforeend", ajoutBtnSupp)
+
+
+// element.addEventListener("click", (event) => {
+//     event.preventDefault();
+
+//     const idSelectionne = element.dataset.id
+
+//     let elmtSupByUser = prdtEnrgDansLeLocalStrge.find(p => p.idProduit == idSelectionne)
+
+//     prdtEnrgDansLeLocalStrge = prdtEnrgDansLeLocalStrge.filter(el => el.idProduit !== elmtSupByUser)
+//     console.log(prdtEnrgDansLeLocalStrge)
+
+// })

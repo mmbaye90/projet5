@@ -59,7 +59,6 @@ header {
     flex-wrap: wrap;
     margin-top: 1rem;
     margin-bottom: 1rem;
-    border: 1px solid black;
 }
 
 .sectionproduits .bloca {
@@ -99,4 +98,9 @@ header {
     height: 2rem;
     margin-top: 1rem;
     cursor: pointer;
+}
+
+h3 {
+    width: 100%;
+    text-align: center;
 }
