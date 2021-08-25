@@ -1,5 +1,12 @@
 geturl()
 
+if (JSON.parse(localStorage.getItem("produit")) && JSON.parse(localStorage.getItem("produit")).length > 0) {
+    let prdtEnrgDansLeLocalStrge = JSON.parse(localStorage.getItem("produit"))
+    const count = prdtEnrgDansLeLocalStrge.length
+    document.getElementById("count").textContent = count
+}
+
+
 function geturl() {
     const win = window.location.search;
     const id = win.slice(2)
@@ -25,32 +32,43 @@ function geturl() {
                     const selected = document.getElementById("selection");
                     const choiceLensesByUser = selected.value
                     const optionUtilisateur = {
-                        imageProduit: datas.imageUrl,
-                        nomProduit: datas.name,
-                        prixProduit: datas.price / (100) + "€",
-                        decripProduit: datas.description,
-                        idProduit: datas._id,
-                        choixLenses: choiceLensesByUser,
-                        quantite: 1
-                    }
-                    const confirmChoice = () => {
-                        if (window.confirm(`${datas.name} avec les lentilles ${choiceLensesByUser}ok pour ajouter au panier si non annuler pour revenir en arriere`)) {
-                            window.location.href = "panier.html"
-                        } else {
-                            window.location.href = "index.html"
+                            imageProduit: datas.imageUrl,
+                            nomProduit: datas.name,
+                            prixProduit: datas.price / (100) + "€",
+                            decripProduit: datas.description,
+                            idProduit: datas._id,
+                            choixLenses: choiceLensesByUser,
+                            quantite: 1
                         }
-                    }
+                        // const confirmChoice = () => {
+                        //     if (window.confirm(`${datas.name} avec les lentilles ${choiceLensesByUser} ok pour ajouter au panier si non annuler pour revenir en arriere`)) {
+                        //         window.location.href = "panier.html"
+                        //     } else {
+                        //         window.location.href = "index.html"
+                        //     }
+                        // }
+
                     let prdtEnrgDansLeLocalStrge = JSON.parse(localStorage.getItem("produit"))
+                        // const count = prdtEnrgDansLeLocalStrge.length
+                        // document.getElementById("count").textContent = count
+
+                    // debugger
+
                     if (prdtEnrgDansLeLocalStrge) {
                         prdtEnrgDansLeLocalStrge.push(optionUtilisateur);
                         localStorage.setItem("produit", JSON.stringify(prdtEnrgDansLeLocalStrge))
-                        confirmChoice()
+                        const count = prdtEnrgDansLeLocalStrge.length
+                        document.getElementById("count").textContent = count
+
+
+                        // confirmChoice()
 
                     } else {
                         prdtEnrgDansLeLocalStrge = [];
                         prdtEnrgDansLeLocalStrge.push(optionUtilisateur);
                         localStorage.setItem("produit", JSON.stringify(prdtEnrgDansLeLocalStrge))
-                        confirmChoice()
+
+                        // confirmChoice()
                     }
                 });
 
