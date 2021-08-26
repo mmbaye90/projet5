@@ -80,3 +80,17 @@ const prixTotal = tabPrix.reduce(reducer, 0);
 
 const printPrix = `<di><strong>Prix-Total : ${prixTotal} €</strong></div>`
 blocSection.insertAdjacentHTML("afterbegin", printPrix)
+
+
+
+const btnCommander = document.getElementById("btnCommander");
+btnCommander.addEventListener("click", (e) => {
+    e.preventDefault
+    localStorage.setItem("nom", document.querySelector("#nom").value);
+    localStorage.setItem("prenom", document.querySelector("#prenom").value);
+    localStorage.setItem("mail", document.querySelector("#mail").value);
+    localStorage.setItem("adresse", document.querySelector("#adresse").value);
+    localStorage.setItem("codePostale", document.querySelector("#codePostale").value);
+    localStorage.setItem("ville", document.querySelector("#ville").value);
+
+})
