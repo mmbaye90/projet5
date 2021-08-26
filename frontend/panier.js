@@ -94,6 +94,6 @@ btnCommander.addEventListener("click", (e) => {
         codePostal: document.querySelector("#codePostal").value,
         ville: document.querySelector("#ville").value,
     }
+    localStorage.setItem("valFormulaire", JSON.stringify(valFormulaire))
 
-    console.log(localStorage.setItem("valFormulaire", valFormulaire))
 })
