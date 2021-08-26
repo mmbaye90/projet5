@@ -16,7 +16,7 @@ function geturl() {
                 console.log(datas)
                 document.getElementById("image").src = datas.imageUrl
                 document.getElementById("nomproduit").textContent = datas.name
-                document.getElementById("prix").textContent = datas.price / (100) + "€"
+                document.getElementById("prix").textContent = datas.price / 100 + " €"
                 document.getElementById("descrip").textContent = datas.description
 
                 let contain = "";
@@ -34,7 +34,7 @@ function geturl() {
                     const optionUtilisateur = {
                             imageProduit: datas.imageUrl,
                             nomProduit: datas.name,
-                            prixProduit: datas.price / (100) + "€",
+                            prixProduit: datas.price / 100,
                             decripProduit: datas.description,
                             idProduit: datas._id,
                             choixLenses: choiceLensesByUser,

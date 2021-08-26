@@ -22,7 +22,7 @@ if (prdtEnrgDansLeLocalStrge === null || prdtEnrgDansLeLocalStrge == 0) {
                     <p class="descrip" id="descrip">${element.decripProduit}</p>
                 </div>
                 <div class="contener-prix-supp">
-                <p class="prix" id="prix"><strong>${element.prixProduit}</strong></p>
+                <p class="prix" id="prix"><strong>${element.prixProduit} €</strong></p>
                 <button class="btn-supp">Supprimer</button>
                 </div>
             </div>   
@@ -67,3 +67,16 @@ supp.addEventListener("click", (e) => {
 //     console.log(prdtEnrgDansLeLocalStrge)
 
 // })
+let tabPrix = [];
+prdtEnrgDansLeLocalStrge.forEach(function(el, index) {
+    const prixRecupere = prdtEnrgDansLeLocalStrge[index].prixProduit
+    tabPrix.push(prixRecupere)
+    console.log(tabPrix)
+
+})
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+const prixTotal = tabPrix.reduce(reducer, 0);
+
+const printPrix = `<di><strong>Prix-Total : ${prixTotal} €</strong></div>`
+blocSection.insertAdjacentHTML("afterbegin", printPrix)

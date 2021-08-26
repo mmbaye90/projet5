@@ -104,3 +104,39 @@ h3 {
     width: 100%;
     text-align: center;
 }
+
+.conteneur-formulaire {
+    max-width: 450px;
+    margin: auto;
+    padding-top: 1rem;
+}
+
+.conteneur-formulaire form {
+    display: flex;
+    flex-direction: column;
+}
+
+.conteneur-formulaire .titre-form {
+    text-align: center;
+}
+
+.conteneur-formulaire #btnCommander {
+    width: 7rem;
+    height: 2rem;
+}
+
+.conteneur-formulaire .btnCommander {
+    display: flex;
+    justify-content: center;
+}
+
+.conteneur-formulaire input {
+    width: 28vw;
+    height: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.conteneur-formulaire input:valid {
+    background-color: green;
+    color: #fff;
+}
