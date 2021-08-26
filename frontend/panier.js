@@ -86,11 +86,14 @@ blocSection.insertAdjacentHTML("afterbegin", printPrix)
 const btnCommander = document.getElementById("btnCommander");
 btnCommander.addEventListener("click", (e) => {
     e.preventDefault
-    localStorage.setItem("nom", document.querySelector("#nom").value);
-    localStorage.setItem("prenom", document.querySelector("#prenom").value);
-    localStorage.setItem("mail", document.querySelector("#mail").value);
-    localStorage.setItem("adresse", document.querySelector("#adresse").value);
-    localStorage.setItem("codePostale", document.querySelector("#codePostale").value);
-    localStorage.setItem("ville", document.querySelector("#ville").value);
+    const valFormulaire = {
+        nom: document.querySelector("#nom").value,
+        prenom: document.querySelector("#prenom").value,
+        mail: document.querySelector("#mail").value,
+        adresse: document.querySelector("#adresse").value,
+        codePostal: document.querySelector("#codePostal").value,
+        ville: document.querySelector("#ville").value,
+    }
 
+    console.log(localStorage.setItem("valFormulaire", valFormulaire))
 })
