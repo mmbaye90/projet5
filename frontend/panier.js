@@ -51,22 +51,12 @@ const blocSection = document.getElementById("sectionproduit")
 blocSection.insertAdjacentHTML("beforeend", ajoutBtnSupp)
 const supp = document.querySelector(".suppAll")
 supp.addEventListener("click", (e) => {
-        e.preventDefault;
-        localStorage.removeItem("produit")
-        alert("attention vous vider votre panier")
-        location.href = "panier.html"
-    })
-    // element.addEventListener("click", (event) => {
-    //     event.preventDefault();
+    e.preventDefault;
+    localStorage.removeItem("produit")
+    alert("attention vous vider votre panier")
+    location.href = "panier.html"
+})
 
-//     const idSelectionne = element.dataset.id
-
-//     let elmtSupByUser = prdtEnrgDansLeLocalStrge.find(p => p.idProduit == idSelectionne)
-
-//     prdtEnrgDansLeLocalStrge = prdtEnrgDansLeLocalStrge.filter(el => el.idProduit !== elmtSupByUser)
-//     console.log(prdtEnrgDansLeLocalStrge)
-
-// })
 let tabPrix = [];
 prdtEnrgDansLeLocalStrge.forEach(function(el, index) {
     const prixRecupere = prdtEnrgDansLeLocalStrge[index].prixProduit
@@ -94,6 +84,96 @@ btnCommander.addEventListener("click", (e) => {
         codePostal: document.querySelector("#codePostal").value,
         ville: document.querySelector("#ville").value,
     }
-    localStorage.setItem("valFormulaire", JSON.stringify(valFormulaire))
+
+    const verifStringNom = (value) => {
+        return /^[A-Za-z]{3,20}$/.test(value);
+    }
+
+    function verifNom() {
+        const recupNom = valFormulaire.nom
+        if (verifStringNom(recupNom)) {
+            return true
+        } else {
+            alert("entrez un nom compris entre 3 et 20 mots\n sans caracteres speciaux, ni space ")
+            return false
+        }
+    }
+
+
+    const verifStrPrenonVille = (value) => {
+        return /^([A-Za-z]{3,20})?([-]){0,1}?([A-Za-z]{3,20})$/.test(value);
+    }
+
+    function verifPrenom() {
+        const recupPrenom = valFormulaire.prenom;
+        if (verifStrPrenonVille(recupPrenom)) {
+            return true
+        } else {
+            alert("veuillez saisir un prenom valide entre 3 et 20 lettres\n sans caracteres speciaux sauf le tiret")
+            return false
+        }
+    }
+
+    function verifVille() {
+        const recupVille = valFormulaire.ville;
+        if (verifStrPrenonVille(recupVille)) {
+            return true
+        } else {
+            alert("veuillez saisir un nom de ville valide : \n ou composé avec un tiret")
+            return false
+        }
+    }
+    const verifCp = (value) => {
+        return /^[0-9]{5}$/.test(value)
+    }
+
+    function verifCodPostale() {
+        const recupCp = valFormulaire.codePostal
+        if (verifCp(recupCp)) {
+            return true
+        } else {
+            alert("Veuillez entrer un Code postale de quatre chiffres")
+            return false
+        }
+    }
+
+    const verifAdresse = (value) => {
+        return /^([0-9]{1,3}) ?([A-Za-z\s]{5,20})$/.test(value);
+        // return /^[0-9]{1,3}(?:(?:[,. ]){1}[a-zA-Z]+)+$/.test(value)
+    }
+
+    function verifAd() {
+        const recupAd = valFormulaire.adresse;
+        if (verifAdresse(recupAd)) {
+            return true
+        } else {
+            alert("Veuillez saisir une adresse identique à l'exemple")
+            return false
+        }
+    }
+
+    const validateEmail = (value) => {
+        return /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value);
+    }
+
+    function verifMail() {
+        const recupMail = valFormulaire.mail
+        if (validateEmail(recupMail)) {
+            return true
+        } else {
+            alert("Veuillez saisir un mail correcte")
+            return false
+        }
+    }
+    if (verifNom() && verifPrenom() && verifVille() && verifCodPostale() && verifAd() && verifMail()) {
+        localStorage.setItem("valFormulaire", JSON.stringify(valFormulaire))
+    } else {
+        return false
+    }
+
+    const storageToSend = {
+        prdtEnrgDansLeLocalStrge,
+        valFormulaire
+    }
 
 })
