@@ -1,5 +1,8 @@
 let prdtEnrgDansLeLocalStrge = JSON.parse(localStorage.getItem("produit"))
 
+
+
+
 if (prdtEnrgDansLeLocalStrge === null || prdtEnrgDansLeLocalStrge == 0) {
     const panierVide = `<h3>votre panier est vide de vide</h3> `
     const blocSection = document.getElementById("sectionproduit")
@@ -35,13 +38,17 @@ if (prdtEnrgDansLeLocalStrge === null || prdtEnrgDansLeLocalStrge == 0) {
 }
 
 const btnClique = document.querySelectorAll(".btn-supp");
+
+
 btnClique.forEach(function(name, index) {
     name.addEventListener("click", (e) => {
         e.preventDefault;
         const recupIdBtnClique = prdtEnrgDansLeLocalStrge[index].idProduit
         prdtEnrgDansLeLocalStrge = prdtEnrgDansLeLocalStrge.filter(el => el.idProduit !== recupIdBtnClique)
-        console.log(prdtEnrgDansLeLocalStrge)
+
+
         localStorage.setItem("produit", JSON.stringify(prdtEnrgDansLeLocalStrge))
+
 
         window.location.href = "panier.html"
     })
@@ -61,8 +68,6 @@ let tabPrix = [];
 prdtEnrgDansLeLocalStrge.forEach(function(el, index) {
     const prixRecupere = prdtEnrgDansLeLocalStrge[index].prixProduit
     tabPrix.push(prixRecupere)
-    console.log(tabPrix)
-
 })
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
@@ -74,23 +79,22 @@ blocSection.insertAdjacentHTML("afterbegin", printPrix)
 
 
 const btnCommander = document.getElementById("btnCommander");
+
 btnCommander.addEventListener("click", (e) => {
     e.preventDefault
-    const valFormulaire = {
-        nom: document.querySelector("#nom").value,
-        prenom: document.querySelector("#prenom").value,
-        mail: document.querySelector("#mail").value,
-        adresse: document.querySelector("#adresse").value,
-        codePostal: document.querySelector("#codePostal").value,
-        ville: document.querySelector("#ville").value,
+    const contact = {
+        firstName: document.querySelector("#prenom").value,
+        lastName: document.querySelector("#nom").value,
+        address: document.querySelector("#adresse").value,
+        city: document.querySelector("#ville").value,
+        email: document.querySelector("#mail").value,
     }
-
     const verifStringNom = (value) => {
         return /^[A-Za-z]{3,20}$/.test(value);
     }
 
     function verifNom() {
-        const recupNom = valFormulaire.nom
+        const recupNom = contact.lastName
         if (verifStringNom(recupNom)) {
             return true
         } else {
@@ -105,7 +109,7 @@ btnCommander.addEventListener("click", (e) => {
     }
 
     function verifPrenom() {
-        const recupPrenom = valFormulaire.prenom;
+        const recupPrenom = contact.firstName;
         if (verifStrPrenonVille(recupPrenom)) {
             return true
         } else {
@@ -115,7 +119,7 @@ btnCommander.addEventListener("click", (e) => {
     }
 
     function verifVille() {
-        const recupVille = valFormulaire.ville;
+        const recupVille = contact.city;
         if (verifStrPrenonVille(recupVille)) {
             return true
         } else {
@@ -123,19 +127,7 @@ btnCommander.addEventListener("click", (e) => {
             return false
         }
     }
-    const verifCp = (value) => {
-        return /^[0-9]{5}$/.test(value)
-    }
 
-    function verifCodPostale() {
-        const recupCp = valFormulaire.codePostal
-        if (verifCp(recupCp)) {
-            return true
-        } else {
-            alert("Veuillez entrer un Code postale de quatre chiffres")
-            return false
-        }
-    }
 
     const verifAdresse = (value) => {
         return /^([0-9]{1,3}) ?([A-Za-z\s]{5,20})$/.test(value);
@@ -143,7 +135,7 @@ btnCommander.addEventListener("click", (e) => {
     }
 
     function verifAd() {
-        const recupAd = valFormulaire.adresse;
+        const recupAd = contact.address;
         if (verifAdresse(recupAd)) {
             return true
         } else {
@@ -157,7 +149,7 @@ btnCommander.addEventListener("click", (e) => {
     }
 
     function verifMail() {
-        const recupMail = valFormulaire.mail
+        const recupMail = contact.email
         if (validateEmail(recupMail)) {
             return true
         } else {
@@ -165,15 +157,47 @@ btnCommander.addEventListener("click", (e) => {
             return false
         }
     }
-    if (verifNom() && verifPrenom() && verifVille() && verifCodPostale() && verifAd() && verifMail()) {
-        localStorage.setItem("valFormulaire", JSON.stringify(valFormulaire))
+
+
+    if (verifNom() && verifPrenom() && verifVille() && verifAd() && verifMail()) {
+        localStorage.setItem("contact", JSON.stringify(contact))
+
     } else {
-        return false
+        alert("remplir correctement le formulaire")
+        return
     }
 
-    const storageToSend = {
-        prdtEnrgDansLeLocalStrge,
-        valFormulaire
-    }
 
-})
+    let product = [];
+    prdtEnrgDansLeLocalStrge.forEach(function(el, index) {
+        const idRecupere = prdtEnrgDansLeLocalStrge[index].idProduit
+        product.push(idRecupere)
+    })
+
+
+    fetch("http://localhost:3000/api/cameras/order", {
+            method: 'POST',
+            body: JSON.stringify({ contact, product }),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+
+        })
+        .then(function(response) {
+            return response.json()
+        })
+        .then(function(data) {
+            console.log(data)
+        })
+
+    .catch(function(err) {
+        console.log(error);
+    });
+});
+// donStorage = localStorage.getItem("contact");
+// convDonneStorage = JSON.parse(donStorage);
+// document.querySelector("#nom").value = convDonneStorage.lastName
+// document.querySelector("#prenom").value = convDonneStorage.firstName
+// document.querySelector("#mail").value = convDonneStorage.email
+// document.querySelector("#adresse").value = convDonneStorage.adress
+// document.querySelector("#ville").value = convDonneStorage.city
