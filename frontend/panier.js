@@ -81,14 +81,15 @@ blocSection.insertAdjacentHTML("afterbegin", printPrix)
 const btnCommander = document.getElementById("btnCommander");
 
 btnCommander.addEventListener("click", (e) => {
-    e.preventDefault
-        // Récupérations des valeurs de forulaire
+    e.preventDefault()
+    e.stopPropagation();
+    // *************************Récupérations des valeurs de forulaire******************************
     let firstName = document.querySelector("#prenom").value;
     let lastName = document.querySelector("#nom").value;
     let address = document.querySelector("#adresse").value;
     let city = document.querySelector("#ville").value;
     let email = document.querySelector("#mail").value;
-    // Préparation de l'objet contact à envoyer
+    //***************************** */ Préparation de l'objet contact à envoyer*******************************
     let contact = {
         firstName,
         lastName,
@@ -96,11 +97,11 @@ btnCommander.addEventListener("click", (e) => {
         city,
         email,
     };
-    // préparation de l'id produit à envoyer
-    let product = [];
+    //**************************** */préparation de l'id produit à envoyer**************************************
+    let products = [];
     prdtEnrgDansLeLocalStrge.forEach(function(el, index) {
             const idRecupere = prdtEnrgDansLeLocalStrge[index].idProduit
-            product.push(idRecupere)
+            products.push(idRecupere)
         })
         //***************************Début fonctions et verification des inputs********************************
     const verifStringNom = (value) => {
@@ -173,18 +174,22 @@ btnCommander.addEventListener("click", (e) => {
     }
 
     //**************************************Fin verification inputs************************************/
+
+    // ******************si toutes les inputs sont valides je stocke l'objet contact dans le LS
+
     if (verifNom() && verifPrenom() && verifVille() && verifAd() && verifMail()) {
         localStorage.setItem("contact", JSON.stringify(contact))
-
+        localStorage.setItem("PrixTotal", JSON.stringify(prixTotal))
 
     } else {
         alert("remplir correctement le formulaire")
 
     }
 
+    //***************************************** */Envoi données au server***************************************
     fetch("http://localhost:3000/api/cameras/order", {
             method: 'POST',
-            body: JSON.stringify({ contact, product }),
+            body: JSON.stringify({ contact, products }),
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -192,7 +197,8 @@ btnCommander.addEventListener("click", (e) => {
         })
         .then(response => response.json())
         .then(response => {
-            console.log(response)
+            localStorage.setItem("retourServer", response.orderId)
+            window.location.href = "confcommande.html"
         })
         .catch(error => {
             console.log(error)

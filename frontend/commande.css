@@ -1,0 +1,62 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: rgb(243, 237, 237);
+    height: 7rem;
+}
+
+.nav-link {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav-link .contener-img {
+    margin-top: 1.7rem;
+}
+
+.nav-link .pagnier {
+    margin-top: 1.9rem;
+}
+
+.nav-link .pagnier i {
+    font-size: 2rem;
+}
+
+#main {
+    background-color: rgb(255, 253, 250);
+}
+
+.titre {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    max-width: 500px;
+    margin: auto;
+    margin-top: 2rem;
+}
+
+.foot {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(58, 29, 29);
+}
+
+.foot .copiright {
+    color: white;
+    font-size: 2rem;
+}
+
+.sectionproduits {
+    max-width: 960px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
