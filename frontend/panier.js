@@ -82,20 +82,34 @@ const btnCommander = document.getElementById("btnCommander");
 
 btnCommander.addEventListener("click", (e) => {
     e.preventDefault
-    const contact = {
-        firstName: document.querySelector("#prenom").value,
-        lastName: document.querySelector("#nom").value,
-        address: document.querySelector("#adresse").value,
-        city: document.querySelector("#ville").value,
-        email: document.querySelector("#mail").value,
-    }
+        // Récupérations des valeurs de forulaire
+    let firstName = document.querySelector("#prenom").value;
+    let lastName = document.querySelector("#nom").value;
+    let address = document.querySelector("#adresse").value;
+    let city = document.querySelector("#ville").value;
+    let email = document.querySelector("#mail").value;
+    // Préparation de l'objet contact à envoyer
+    let contact = {
+        firstName,
+        lastName,
+        address,
+        city,
+        email,
+    };
+    // préparation de l'id produit à envoyer
+    let product = [];
+    prdtEnrgDansLeLocalStrge.forEach(function(el, index) {
+            const idRecupere = prdtEnrgDansLeLocalStrge[index].idProduit
+            product.push(idRecupere)
+        })
+        //***************************Début fonctions et verification des inputs********************************
     const verifStringNom = (value) => {
         return /^[A-Za-z]{3,20}$/.test(value);
     }
 
     function verifNom() {
-        const recupNom = contact.lastName
-        if (verifStringNom(recupNom)) {
+        // const recupNom = contact.lastName
+        if (verifStringNom(lastName)) {
             return true
         } else {
             alert("entrez un nom compris entre 3 et 20 mots\n sans caracteres speciaux, ni space ")
@@ -109,8 +123,8 @@ btnCommander.addEventListener("click", (e) => {
     }
 
     function verifPrenom() {
-        const recupPrenom = contact.firstName;
-        if (verifStrPrenonVille(recupPrenom)) {
+        // const recupPrenom = contact.firstName;
+        if (verifStrPrenonVille(firstName)) {
             return true
         } else {
             alert("veuillez saisir un prenom valide entre 3 et 20 lettres\n sans caracteres speciaux sauf le tiret")
@@ -119,8 +133,8 @@ btnCommander.addEventListener("click", (e) => {
     }
 
     function verifVille() {
-        const recupVille = contact.city;
-        if (verifStrPrenonVille(recupVille)) {
+        // const recupVille = contact.city;
+        if (verifStrPrenonVille(city)) {
             return true
         } else {
             alert("veuillez saisir un nom de ville valide : \n ou composé avec un tiret")
@@ -135,8 +149,8 @@ btnCommander.addEventListener("click", (e) => {
     }
 
     function verifAd() {
-        const recupAd = contact.address;
-        if (verifAdresse(recupAd)) {
+        // const recupAd = contact.address;
+        if (verifAdresse(address)) {
             return true
         } else {
             alert("Veuillez saisir une adresse identique à l'exemple")
@@ -149,8 +163,8 @@ btnCommander.addEventListener("click", (e) => {
     }
 
     function verifMail() {
-        const recupMail = contact.email
-        if (validateEmail(recupMail)) {
+        // const recupMail = contact.email
+        if (validateEmail(email)) {
             return true
         } else {
             alert("Veuillez saisir un mail correcte")
@@ -158,41 +172,41 @@ btnCommander.addEventListener("click", (e) => {
         }
     }
 
-
+    //**************************************Fin verification inputs************************************/
     if (verifNom() && verifPrenom() && verifVille() && verifAd() && verifMail()) {
         localStorage.setItem("contact", JSON.stringify(contact))
 
+
     } else {
         alert("remplir correctement le formulaire")
-        return
+
     }
-
-
-    let product = [];
-    prdtEnrgDansLeLocalStrge.forEach(function(el, index) {
-        const idRecupere = prdtEnrgDansLeLocalStrge[index].idProduit
-        product.push(idRecupere)
-    })
-
 
     fetch("http://localhost:3000/api/cameras/order", {
             method: 'POST',
             body: JSON.stringify({ contact, product }),
             headers: {
-                'Content-Type': 'application/json'
-            },
+                'Content-Type': 'application/json',
+            }
 
         })
-        .then(function(response) {
-            return response.json()
+        .then(response => response.json())
+        .then(response => {
+            console.log(response)
         })
-        .then(function(data) {
-            console.log(data)
+        .catch(error => {
+            console.log(error)
         })
 
-    .catch(function(err) {
-        console.log(error);
-    });
+    // const toSend = {
+    //     prdtEnrgDansLeLocalStrge,
+    //     contact,
+    // }
+
+
+
+
+
 });
 // donStorage = localStorage.getItem("contact");
 // convDonneStorage = JSON.parse(donStorage);
