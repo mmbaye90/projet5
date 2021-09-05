@@ -56,6 +56,8 @@ btnClique.forEach(function(name, index) {
 const ajoutBtnSupp = `<button class="suppAll">Vider le panier</button>`;
 const blocSection = document.getElementById("sectionproduit")
 blocSection.insertAdjacentHTML("beforeend", ajoutBtnSupp)
+
+
 const supp = document.querySelector(".suppAll")
 supp.addEventListener("click", (e) => {
     e.preventDefault;
@@ -65,10 +67,13 @@ supp.addEventListener("click", (e) => {
 })
 
 let tabPrix = [];
-prdtEnrgDansLeLocalStrge.forEach(function(el, index) {
-    const prixRecupere = prdtEnrgDansLeLocalStrge[index].prixProduit
-    tabPrix.push(prixRecupere)
-})
+if (prdtEnrgDansLeLocalStrge && prdtEnrgDansLeLocalStrge.length) {
+    prdtEnrgDansLeLocalStrge.forEach((el, index) => {
+        const prixRecupere = prdtEnrgDansLeLocalStrge[index].prixProduit
+        tabPrix.push(prixRecupere)
+    })
+};
+
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
 const prixTotal = tabPrix.reduce(reducer, 0);
@@ -83,6 +88,7 @@ const btnCommander = document.getElementById("btnCommander");
 btnCommander.addEventListener("click", (e) => {
     e.preventDefault()
     e.stopPropagation();
+
     // *************************Récupérations des valeurs de forulaire******************************
     let firstName = document.querySelector("#prenom").value;
     let lastName = document.querySelector("#nom").value;
@@ -176,13 +182,14 @@ btnCommander.addEventListener("click", (e) => {
     //**************************************Fin verification inputs************************************/
 
     // ******************si toutes les inputs sont valides je stocke l'objet contact dans le LS
-
-    if (verifNom() && verifPrenom() && verifVille() && verifAd() && verifMail()) {
+    const recupProduit = localStorage.getItem("produit");
+    if (verifNom() && verifPrenom() && verifVille() && verifAd() && verifMail() && recupProduit.length) {
         localStorage.setItem("contact", JSON.stringify(contact))
         localStorage.setItem("PrixTotal", JSON.stringify(prixTotal))
 
     } else {
         alert("remplir correctement le formulaire")
+        window.location.href = "panier.html"
 
     }
 

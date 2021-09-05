@@ -4,7 +4,7 @@ function getArticles() {
     fetch("http://localhost:3000/api/cameras")
         .then(response => response.json())
         .then(datas => datas.forEach(article => {
-                console.log(article)
+
                 const elmt = document.getElementById("temp")
                 const clone = document.importNode(elmt.content, true)
                 clone.getElementById("image").src = article.imageUrl

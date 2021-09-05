@@ -28,6 +28,7 @@ header {
 
 #main {
     background-color: rgb(255, 253, 250);
+    height: 80vh;
 }
 
 .titre {
@@ -37,6 +38,8 @@ header {
     max-width: 500px;
     margin: auto;
     margin-top: 2rem;
+    background-color: chartreuse;
+    border-radius: 0.3rem;
 }
 
 .foot {
@@ -59,4 +62,23 @@ header {
     flex-wrap: wrap;
     margin-top: 1rem;
     margin-bottom: 1rem;
+}
+
+.sectionproduits .print-valid-commande {
+    border: 1px solid black;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 1rem;
+    background-color: #b1b1e4;
+    border-radius: 0.3rem;
+}
+
+.sectionproduits .print-valid-commande .numero {
+    color: red;
+    font-weight: bold;
+}
+
+.sectionproduits .print-valid-commande .prix {
+    color: red;
+    font-weight: bold;
 }
