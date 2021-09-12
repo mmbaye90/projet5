@@ -134,7 +134,7 @@ btnCommander.addEventListener("click", (e) => {
         if (verifStrPrenonVille(firstName)) {
             return true
         } else {
-            alert("veuillez saisir un prenom valide entre 3 et 20 lettres\n sans caracteres speciaux sauf le tiret")
+            alert("Veuillez saisir un prenom valide identique à l'exemple entre 3 et 20 lettres\n sans caracteres speciaux sauf le tiret")
             return false
         }
     }
@@ -144,7 +144,7 @@ btnCommander.addEventListener("click", (e) => {
         if (verifStrPrenonVille(city)) {
             return true
         } else {
-            alert("veuillez saisir un nom de ville valide : \n ou composé avec un tiret")
+            alert("Veuillez saisir un nom de ville valide : \n ou composé avec un tiret")
             return false
         }
     }
